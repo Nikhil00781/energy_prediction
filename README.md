@@ -1,54 +1,42 @@
-Energy Consumption Analysis and Forecasting
-This repository contains a comprehensive analysis and predictive modeling project for energy consumption data. The project explores temporal patterns in energy usage and implements both statistical and machine learning models to forecast future demand.
+# Energy Consumption Prediction Analysis
 
-📊 Project Overview
-The primary goal of this project is to analyze historical electricity consumption data (in MWh) and build models capable of predicting future consumption. Accurate energy forecasting is critical for grid management, infrastructure planning, and operational efficiency.
+This repository contains a comprehensive analysis and time-series forecasting project focused on energy consumption data. The goal is to predict electricity demand using historical data through Exploratory Data Analysis (EDA), statistical modeling (ARIMA), and Machine Learning (Random Forest).
 
-📁 Dataset Description
-The analysis is based on the Predicting Energy Consumption.xlsm dataset, which includes:
+## 📊 Project Overview
+Energy forecasting is a critical task for grid operators to balance supply and demand. This project walks through the lifecycle of a data science problem: from raw data ingestion to evaluating model performance against a baseline.
 
-Start time UTC: The beginning of the recorded hour.
+## 🗂️ Dataset Description
+The analysis uses a time-indexed dataset (`Predicting Energy Consumption.xlsm`) with the following structure:
+* **Start Time UTC**: Timestamp indicating the beginning of the consumption window.
+* **End Time UTC**: Timestamp indicating the end of the window.
+* **Electricity consumption (MWh)**: The target variable (int64) representing hourly energy usage.
 
-End time UTC: The end of the recorded hour.
+## 🛠️ Features
+The notebook performs extensive **Feature Engineering** to capture temporal patterns:
+* **Calendar Features**: Hour of the day, day of the week, month, and weekend indicators.
+* **Lag Features**: Historical values (t-1 and t-24) to provide the model with context from the previous hour and the previous day.
 
-Electricity consumption (MWh): The total energy consumed during that hour (Target Variable).
+## 🔍 Exploratory Data Analysis (EDA)
+The project includes several visualizations to understand the data:
+* **Time Series Plots**: To identify overall trends and fluctuations.
+* **Boxplots**: To analyze hourly and weekly seasonality (e.g., peak hours vs. off-peak).
+* **Correlation Heatmaps**: To see which temporal features most strongly impact energy consumption.
 
-🛠️ Key Features & Preprocessing
-To improve model accuracy, several temporal features were engineered from the UTC timestamps:
+## 🤖 Modeling & Evaluation
+The project implements a "Walk-Forward" validation strategy and compares three distinct approaches:
 
-Hour of Day: Captures daily consumption cycles (e.g., peak business hours).
+| Model | Description | Purpose |
+| :--- | :--- | :--- |
+| **Naive Baseline** | Persistence model ($t = t-1$) | Establishes a minimum performance benchmark. |
+| **ARIMA** | Statistical AutoRegressive model | Captures linear relationships in the time series. |
+| **Random Forest** | Machine Learning Regressor | Captures non-linear patterns and complex interactions. |
 
-Day of Week: Identifies differences between weekday and weekend usage.
+### Key Results
+* **Baseline RMSE**: ~238.08 MWh
+* **Random Forest RMSE**: ~120.71 MWh
+* **Performance**: The Random Forest model achieved a **~49% reduction in error** compared to the baseline.
 
-Month: Captures seasonal variations throughout the year.
-
-Is Weekend: A binary flag for Saturday and Sunday.
-
-Lag Features: Includes lag_1h (previous hour) and lag_24h (same hour previous day) to capture autocorrelation in the time series.
-
-🔍 Exploratory Data Analysis (EDA)
-The notebook performs detailed EDA to visualize energy trends:
-
-Time Series Plots: Visualizing overall consumption over time.
-
-Boxplots: Analyzing consumption distribution by hour of the day and day of the week to identify peak demand periods.
-
-Correlation Analysis: Using heatmaps to understand the relationship between engineered features and energy demand.
-
-🤖 Modeling Approach
-The project compares traditional statistical methods with modern machine learning techniques:
-
-Baseline (Naive) Model: Uses the previous hour's consumption as the prediction for the current hour.
-
-ARIMA: A statistical time-series model (AutoRegressive Integrated Moving Average) used for walk-forward validation.
-
-Random Forest Regressor: A machine learning ensemble method that significantly outperformed the baseline by capturing non-linear patterns.
-
-Performance Results
-The Random Forest model demonstrated superior performance:
-
-Random Forest RMSE: ~120.71 MWh
-
-Baseline RMSE: ~238.08 MWh
-
-Improvement: The ML approach reduced error by approximately 49% compared to the naive baseline.
+## 🚀 How to Use
+1. **Clone the repository**:
+   ```bash
+   git clone [https://github.com/your-username/energy-prediction.git](https://github.com/your-username/energy-prediction.git)
